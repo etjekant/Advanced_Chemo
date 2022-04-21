@@ -1,3 +1,15 @@
+function data_reading(path, name="toxicity_data_fish_desc.csv", clean=true)
+    # This function reads the data and cleans the data if you want to. Also the first columns are removed
+    # These are the columns that are not important
+    data = CSV.read(path*name, DataFrame)
+    data = data[:, 6:end]
+    namen = names(data)
+    if clean
+        data, namen = remove_shit(data, namen)
+    end
+    return data, namen
+end
+
 function r_cal(x, y, y_hat)
     # r_cal takes as input three vectors of the same length. 
     SS_tot = sum((y.-mean(y)).^2)
