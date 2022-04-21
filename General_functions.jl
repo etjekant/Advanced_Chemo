@@ -9,7 +9,7 @@ function data_reading(path, name="toxicity_data_fish_desc.csv", clean=true)
     end
     return data, namen
 end
-
+# hi
 function r_cal(x, y, y_hat)
     # r_cal takes as input three vectors of the same length. 
     SS_tot = sum((y.-mean(y)).^2)
