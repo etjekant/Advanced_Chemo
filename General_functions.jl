@@ -74,9 +74,7 @@ function distance_calc_higher(data)
         end
     end
     return dist += dist'
-end
-                                                                
-                                                                
+end                                                              
                                                                 
 function MCR_simple(Data1, factor)
     (S_Simple,C_Simple, obs) = SIMPLE(Data1'; Factors = factor)
