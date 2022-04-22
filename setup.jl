@@ -6,3 +6,7 @@ using RDatasets, ScikitLearn, StatsBase, Statistics, StatsPlots
 @sk_import linear_model: LogisticRegression
 @sk_import preprocessing: StandardScaler
 @sk_import model_selection: train_test_split
+
+data = ["Arg", "Pro", "Pro", "Gly", "Phe", "Ser", "Pro", "Phe", "Arg"]
+unique(data)
+# hi
