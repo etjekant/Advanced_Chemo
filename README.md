@@ -21,6 +21,7 @@ Project for advanced Chemometrics and Statistics
 |4   |Mean       |corr   |
 |5   |Std        |cov    |
 |6   |Std        |corr   |
+
 To check with columns are significant there are a few methods:
 > 1. suffle pca.
 > 2. R-squared adjusted on a training and a test set.
