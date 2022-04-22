@@ -1,5 +1,13 @@
 # Advanced_Chemo
 Project for advanced Chemometrics and Statistics
 
-## Subheader
-this is a test
+## TODO
+|Ikram |Yuliya |Kevin |Etienne | Projects | 
+:---   | :---| :---   |:---    |  :---    |
+|      |     |        |        |PCA       |
+|      |     |        |        |SVD       | 
+|      |     |        |        |MCR*      |
+|      |     |        |        |PLSA      |
+|      |     |        |        |HCA       |
+|      |     |        |        |K-means   |
+
