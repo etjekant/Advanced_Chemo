@@ -7,7 +7,10 @@ function data_reading(clean=true)
     if clean
         data, namen = remove_shit(data, namen)
     end
-    return data, namen
+    y = data[:, 6]
+    x = data[:, 8:end]
+    namen = namen[8:end]
+    return x, y, namen
 end
 
 function r_cal(x, y, y_hat)
