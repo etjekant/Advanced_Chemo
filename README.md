@@ -4,7 +4,7 @@ Project for advanced Chemometrics and Statistics
 ## TODO
 |Ikram |Yuliya |Kevin |Etienne | Projects | 
 |:---   | :---| :---   |:---    |  :---    |
-|      |     |        |        |PCA       |
+|      |     |        |x       |PCA       |
 |      |     |        |        |SVD       | 
 |      |     |        |        |MCR*      |
 |      |     |        |        |PLSA      |

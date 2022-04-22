@@ -42,4 +42,3 @@ function suffle_PCA(X1, alpha=0.05)
     # returns an range of the columns to select
     return significant_columns:size(X1)[2]
 end
-
