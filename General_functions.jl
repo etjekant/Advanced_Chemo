@@ -2,15 +2,13 @@ function data_reading(clean=true)
     # This function reads the data and cleans the data if you want to. Also the first columns are removed
     # These are the columns that are not important
     data = CSV.read("./toxicity_data_fish_desc.csv", DataFrame)
-    data = data[:, 6:end]
-    namen = names(data)
-    if clean
-        data, namen = remove_shit(data, namen)
-    end
-    y = data[:, 6]
     x = data[:, 8:end]
-    namen = namen[8:end]
-    return x, y, namen
+    y = data[:, 1]
+    namen = names(x)
+    if clean
+        namen, x = remove_shit(x, namen)
+    end
+    return Matrix(x), y, namen
 end
 
 function r_cal(x, y, y_hat)
@@ -65,4 +63,14 @@ function distance_calc_higher(data)
     end
     return dist += dist'
 end                                                              
-                                                                
+
+function normalize_data(x, y, method="std")
+    if method == "std"
+        x = (x .- mean(x, dims=1)) ./ std(x, dims = 1)
+        y = (y .- mean(y)) / std(y)
+    elseif method == "mixmax"
+        x = (x .- maximum(x, dims=1)) ./ (maximum(x, dims=1) - minimum(x, dims=1))
+        y = (y .- maximum(x)) ./ (maximum(x) - minimum(x))
+    end
+    return x, y
+end

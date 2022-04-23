@@ -7,4 +7,6 @@ using RDatasets, ScikitLearn, StatsBase, Statistics, StatsPlots
 @sk_import preprocessing: StandardScaler
 @sk_import model_selection: train_test_split
 include("./PCA/PCA_functions.jl")
-
+include("./SVD/SVD_functions.jl")
+include("./MCR/MCR_functions.jl")
+include("General_functions.jl")
