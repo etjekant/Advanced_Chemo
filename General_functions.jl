@@ -11,13 +11,20 @@ function data_reading(clean=true)
     return Matrix(x), y, namen
 end
 
-function r_cal(x, y, y_hat)
+function r_cal(x2, y, y_hat)
     # r_cal takes as input three vectors of the same length. 
-    SSᵣ = sum((y_hat .- mean(y)).^2)
-    SSₜ = sum((y .- mean(y)).^2)
-    Rsquared = 1 - (SSᵣ/SSₜ)
-    VARres = SSᵣ/(length(x)-size(x)[2])         # calculating VARres
-    VARtot = SSₜ/(length(x)-1)                  # calculating VARtot
+    SSr = sum((y - y_hat).^2)
+    SSe = sum((y_hat .- mean(y)).^2)
+    SSt = sum((y .- mean(y)).^2)
+    Rsquared = 1 - (SSr/SSt)
+    columns = 0
+    try
+        columns = size(x2)[2]
+    catch BoundsError
+        columns = 1
+    end
+    VARres = SSr/(length(y)-columns)         # calculating VARres
+    VARtot = SSt/(length(x2)-1)                  # calculating VARtot
     rsqadj = 1 - (VARres/VARtot)
     return Rsquared, rsqadj
 end
@@ -68,7 +75,7 @@ function normalize_data(x, y, method="std")
     if method == "std"
         x = (x .- mean(x, dims=1)) ./ std(x, dims = 1)
         y = (y .- mean(y)) / std(y)
-    elseif method == "mixmax"
+    elseif method == "minmax"
         x = (x .- maximum(x, dims=1)) ./ (maximum(x, dims=1) - minimum(x, dims=1))
         y = (y .- maximum(x)) ./ (maximum(x) - minimum(x))
     end

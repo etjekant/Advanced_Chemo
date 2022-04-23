@@ -21,6 +21,3 @@ namen, x = remove_shit(x, namen)
 radj_PCA(x, y)
 
 
-x, y, namen = data_reading()
-x, y1 = normalize_data(x, y, "std")
-namen, x = remove_shit(x, namen)
