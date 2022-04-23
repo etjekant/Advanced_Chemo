@@ -1,12 +1,11 @@
 function suffle_PCA(X1; alpha=0.05, method=cov)
-    X1 = x
     column_length = size(X1)[2]
     # is used to give information about the real and random eigenvalue. 
     return_matrix = DataFrame("Column_number"=>Int64[], "upper"=>Float64[], "eigenvalue"=>Float64[])
     # Need to add sorting of the data. in our case this does not matter. but might be needed for other data
     significant_columns = 0
     # doing the eigenvalue decomposition
-    cov_m = cov(X1);
+    cov_m = method(X1);
     eigval = eigvals(cov_m)
     eigvec =  eigvecs(cov_m);
     # making the loadings and scores to perform deflation in the loop.
@@ -58,4 +57,3 @@ function suffle_PCA(X1; alpha=0.05, method=cov)
     significant_columns = column_length - significant_columns
     return significant_columns:size(X1)[2], return_matrix
 end
-

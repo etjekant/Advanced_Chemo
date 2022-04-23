@@ -3,7 +3,7 @@ function data_reading(clean=true)
     # These are the columns that are not important
     data = CSV.read("./toxicity_data_fish_desc.csv", DataFrame)
     x = data[:, 8:end]
-    y = data[:, 1]
+    y = data[:, 6]
     namen = names(x)
     if clean
         namen, x = remove_shit(x, namen)
@@ -13,11 +13,11 @@ end
 
 function r_cal(x, y, y_hat)
     # r_cal takes as input three vectors of the same length. 
-    SS_tot = sum((y.-mean(y)).^2)
-    SS_res = sum((y_hat-y).^2)
-    Rsquared = 1 - (SS_res/SS_tot)
-    VARres = SS_res/(length(x)-size(x)[2])         # calculating VARres
-    VARtot = SS_tot/(length(x)-1)                  # calculating VARtot
+    SSᵣ = sum((y_hat .- mean(y)).^2)
+    SSₜ = sum((y .- mean(y)).^2)
+    Rsquared = 1 - (SSᵣ/SSₜ)
+    VARres = SSᵣ/(length(x)-size(x)[2])         # calculating VARres
+    VARtot = SSₜ/(length(x)-1)                  # calculating VARtot
     rsqadj = 1 - (VARres/VARtot)
     return Rsquared, rsqadj
 end
