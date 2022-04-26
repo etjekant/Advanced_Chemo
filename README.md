@@ -5,11 +5,13 @@ Project for advanced Chemometrics and Statistics
 |Ikram |Yuliya |Kevin |Etienne | Projects | 
 |:---   | :---| :---   |:---    |  :---    |
 |      |     |        |x       |PCA       |
-|      |     |        |        |SVD       | 
+|      |     |        |x        |SVD       | 
 |      |     |        |        |MCR*      |
 |      |     |        |        |PLSA      |
 |      |     |        |        |HCA       |
 |      |     |        |        |K-means   |
+|      |     |        |        |Desision Tree   |
+
 * MCR might not be possible because of our dataset. We still need to explain why it is not possible.
 
 
