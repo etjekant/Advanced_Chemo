@@ -31,4 +31,8 @@ These methods can be used to determine how many columns are needed. The advantag
 
 
 
-
+> 1. Dataset, what does it look like
+> 2. How to omit the NaN values
+> 3. how the data is normalized
+> 4. Every method what we did and why we did it
+> 5. How the number of columns got chosen. 

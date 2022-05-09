@@ -36,7 +36,7 @@ function suffle_PCA(X1; alpha=0.05, method=cov)
         end
         # calculating the one sided confidence interval. 
         mean_return = mean(return_data)
-        std_return = std(return_data)
+        std_return = std(return_data, mean=mean_return)
         t_crit = quantile(TDist(length(return_data)), 1-alpha/2)
         upper = mean_return + std_return * t_crit
         # The first position will be the column number

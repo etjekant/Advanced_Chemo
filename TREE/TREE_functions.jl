@@ -12,3 +12,19 @@ function node_finder(x, y)
     node = argmin(SSₑ)
     return node, SSₑ
 end
+
+ function group_maker(y, group)
+    tmp = zeros(length(y))
+    y_mean = mean(y)
+    y_std = std(y, mean=y_mean)
+    groups = collect(1:group)
+    d = Normal(y_mean, y_std)
+    groups = (1/group .* groups) 
+    groups .= quantile(d, groups)
+    pushfirst!(groups, -Inf64)
+
+    for i in 1:length(groups)-1
+        tmp[groups[i] .< y .< groups[i+1]] .= i
+    end
+    return tmp
+end

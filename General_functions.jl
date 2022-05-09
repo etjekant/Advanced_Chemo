@@ -1,4 +1,4 @@
-function data_reading(clean=true)
+function data_reading(;clean=true, mono_mass=false)
     # This function reads the data and cleans the data if you want to. Also the first columns are removed
     # These are the columns that are not important
     data = CSV.read("./toxicity_data_fish_desc.csv", DataFrame)
@@ -6,7 +6,10 @@ function data_reading(clean=true)
     y = data[:, 6]
     namen = names(x)
     if clean
-        namen, x = remove_shit(x, namen)
+        x, namen= remove_shit(x, namen)
+    end
+    if mono_mass
+        return  Matrix(x), y, namen, data[:, 7]
     end
     return Matrix(x), y, namen
 end
@@ -45,7 +48,7 @@ function remove_shit(x_data, namen=[])
     x_data = x_data[:, vec(.!any(Inf.==(Matrix(x_data)), dims=1))]
     namen = namen[vec(.!any((-Inf).==(Matrix(x_data)), dims=1))]
     x_data = x_data[:, vec(.!any((-Inf).==(Matrix(x_data)), dims=1))]
-    return namen, x_data
+    return x_data, namen
 end
                                                 
 function distance_calc(N)

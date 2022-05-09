@@ -1,4 +1,4 @@
-function var_exp(X)
+function var_exp_svd(X)
     # This function is selfwritten and takes in the X-data. This function needs to be changes into Denises variant
     xt = transpose(X)*X
     V = eigvecs(xt)
