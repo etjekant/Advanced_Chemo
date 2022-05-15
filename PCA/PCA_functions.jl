@@ -5,7 +5,7 @@ function suffle_PCA(X1; alpha=0.05, method=cov)
     # Need to add sorting of the data. in our case this does not matter. but might be needed for other data
     significant_columns = 0
     # doing the eigenvalue decomposition
-    cov_m = method(X1);
+    cov_m = method(X1)
     eigval = eigvals(cov_m)
     eigvec =  eigvecs(cov_m);
     # making the loadings and scores to perform deflation in the loop.
@@ -13,6 +13,7 @@ function suffle_PCA(X1; alpha=0.05, method=cov)
     scores = (loadings'*X1')' 
     # looping over the whole dataset. This is because all columns can be significant.
     # There is a break statment when the first column is not significant anymore.
+    cov_m = zeros(size(X1))
     for i in 1:size(X1)[2]
         # return_data is used to sture the eigenvalues of the datset.
         tmp_vector = zeros(3)
@@ -51,9 +52,9 @@ function suffle_PCA(X1; alpha=0.05, method=cov)
         # if the column is significant, the number gets updated
         significant_columns = i
         # deflating the matrix
-        X1 = X1 - scores * loadings' 
+        X1 = X1 - scores * loadings'
     end
     # returns an range of the columns to select
-    significant_columns = column_length - significant_columns
-    return significant_columns:size(X1)[2], return_matrix
+    significant_columns = significant_columns 
+    return (significant_columns, return_matrix)
 end

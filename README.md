@@ -4,13 +4,11 @@ Project for advanced Chemometrics and Statistics
 ## TODO
 |Ikram |Yuliya |Kevin |Etienne | Projects | 
 |:---   | :---| :---   |:---    |  :---    |
-|      |     |        |x       |PCA       |
-|      |     |        |x        |SVD       | 
-|      |     |        |        |MCR*      |
-|      |     |        |        |PLSA      |
+|X      |X     |        |X      |PCA       |
+|X      |X     |        |X        |SVD       | 
+|X      |X     |        |        |PLSA      |
 |      |     |        |        |HCA       |
-|      |     |        |        |K-means   |
-|      |     |        |        |Desision Tree   |
+|      |     |        |X        |Desision Tree   |
 
 * MCR might not be possible because of our dataset. We still need to explain why it is not possible.
 
@@ -35,4 +33,4 @@ These methods can be used to determine how many columns are needed. The advantag
 > 2. How to omit the NaN values
 > 3. how the data is normalized
 > 4. Every method what we did and why we did it
-> 5. How the number of columns got chosen. 
+> 5. How the number of columns got chosen 

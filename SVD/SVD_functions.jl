@@ -1,21 +1,19 @@
 function var_exp_svd(X)
-    # This function is selfwritten and takes in the X-data. This function needs to be changes into Denises variant
+    tmp = zeros(size(X, 2), size(X, 2))
+    X_hat = zeros(size(X))
+    var_exp = zeros(size(X,2))
+    previous_var = 1
     xt = transpose(X)*X
     V = eigvecs(xt)
-    # had to use abs, the first values became small and negative
-    # No column with a negative eigenvalue has been chosen.
     eigenvalues = abs.(eigvals(xt))
     D = diagm(sqrt.(eigenvalues))
     U = X*V*pinv(D)
-    var_exp1 = zeros(size(D,1))
-	for i = 1:size(D,1)
-        println(i)
-		#Copy D and set 1 value  to 0
-		Dtemp = deepcopy(D)
-		Dtemp[i,i] = 0
-		X_hat = U*Dtemp*V'
-		#Variance explained by remaining variables (all except i)
-		var_exp1[i] = (sum((X.-X_hat).^2)/sum(X.^2))
-	end
-    return var_exp1
+    for i in 1:size(D, 1)
+        D_temp = deepcopy(D)
+        D_temp[i,i] = 0
+        LinearAlgebra.mul!(tmp, D_temp, V')
+        LinearAlgebra.mul!(X_hat, U, tmp)
+        var_exp[i] = (sum((X.-X_hat).^2)/sum(X.^2))
+    end
+    return var_exp
 end

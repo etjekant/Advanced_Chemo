@@ -80,7 +80,7 @@ function normalize_data(x, y, method="std")
         y = (y .- mean(y)) / std(y)
     elseif method == "minmax"
         x = (x .- maximum(x, dims=1)) ./ (maximum(x, dims=1) - minimum(x, dims=1))
-        y = (y .- maximum(x)) ./ (maximum(x) - minimum(x))
+        y = (y .- maximum(y)) ./ (maximum(y) - minimum(y))
     end
     return x, y
 end
