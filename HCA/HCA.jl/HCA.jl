@@ -1,5 +1,24 @@
 #Project Toxicity  (HCA)
 
+function remove_shit(x_data, namen=[])
+    # This function takes a Dataframe or Matrix as input. 
+    # When a DataFrame is given "namen" can be left empty. When a 
+    # Matrix is given, namen should be specified. This makes sure the column headers
+    # are known when working with the data. 
+    if isempty(namen)
+        namen = names(x_data)
+    end
+    namen = namen[vec(.!any(ismissing.(Matrix(x_data)), dims=1))]
+    x_data = x_data[:, vec(.!any(ismissing.(Matrix(x_data)), dims=1))]
+    namen = namen[vec(.!any(isnan.(Matrix(x_data)), dims=1))]
+    x_data = x_data[:, vec(.!any(isnan.(Matrix(x_data)), dims=1))]
+    namen = namen[vec(.!any(Inf.==(Matrix(x_data)), dims=1))]
+    x_data = x_data[:, vec(.!any(Inf.==(Matrix(x_data)), dims=1))]
+    namen = namen[vec(.!any((-Inf).==(Matrix(x_data)), dims=1))]
+    x_data = x_data[:, vec(.!any((-Inf).==(Matrix(x_data)), dims=1))]
+    return namen, x_data
+end
+
 function calcDist(data)
 
 	dist = zeros(size(data,1),size(data,1))
