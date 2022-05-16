@@ -2,6 +2,7 @@
 x, y, namen = data_reading()
 return_data = suffle_PCA(deepcopy(x))
 X1 = x
+
 """
 Row │ Column_number  upper       eigenvalue 
 │ Int64          Float64     Float64    
@@ -9,8 +10,8 @@ Row │ Column_number  upper       eigenvalue
 1 │          2300  2.70251e12  2.7066e12
 2 │          2299  5.11878e12  2.46163e12
 """
-# Shuffle Std normalized
 
+# Shuffle Std normalized
 x, y, namen = data_reading()
 x, y = normalize_data(x, y)
 x, namen = remove_shit(x, namen)

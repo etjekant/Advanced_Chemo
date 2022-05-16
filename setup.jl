@@ -14,3 +14,21 @@ include("./PCA/PCA_functions.jl")
 include("./SVD/SVD_functions.jl")
 include("./MCR/MCR_functions.jl")
 include("./TREE/TREE_functions.jl")
+
+
+data = CSV.read("ConcData.csv", DataFrame)
+data = vec(Matrix(data))
+normal_dist = Normal(mean(data), std(data))
+gamma_dist = fit_mle(Gamma, data)
+plot(gamma_dist)
+plot!(normal_dist)
+histogram!(data, bins=5, normalize=true, alpha=0.5)
+
+loop_vector = collect(9:0.01:10)
+return_vector = zeros(length(collect(9:0.01:10)))
+for i in eachindex(loop_vector)
+    normal_chance = pdf(normal_dist, i)
+    gamma_chance = pdf(gamma_dist, i)
+    return_vector[i] = normal_chance*gamma_chance
+    Plots.display(plot(loop_vector, return_vector))
+end
