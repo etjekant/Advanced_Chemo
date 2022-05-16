@@ -1,5 +1,5 @@
-# This document should provide every package you need for our julia project. If not, please at the packages and update this file
-using CSV, CurveFit, DataFrames, Distributions, GLM, HypothesisTests, Interpolations
+# This document should provide every package you need for our julia project. If not, please add the packages and update this file
+using Clustering, CSV, CurveFit, DataFrames, Distributions, GLM, HypothesisTests, Interpolations
 using Juno, LinearAlgebra, MixedAnova, OrderedCollections, Peaks, Plots, Random
 using RDatasets, ScikitLearn, StatsBase, Statistics, StatsPlots
 @sk_import decomposition: PCA
