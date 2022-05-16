@@ -36,4 +36,4 @@ scatter(var_ex)
 scatter(scores[:,1], scores[:,2], scores[:,3], seriestype = :scatter, 
             xlabel = :PC1, ylabel = :PC2, zlabel = :PC3)
 
-       
+            test
