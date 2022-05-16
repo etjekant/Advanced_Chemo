@@ -7,6 +7,10 @@ Project for advanced Chemometrics and Statistics
 |X      |X     |        |X      |PCA       |
 |X      |X     |        |X        |SVD       | 
 |X      |X     |        |        |PLSA      |
+|      |     |        |X        |PCA       |
+|      |     |        |        |SVD       | 
+|      |     |        |        |MCR*      |
+|      |     |        |        |PLSA      |
 |      |     |        |        |HCA       |
 |      |     |        |X        |Desision Tree   |
 
