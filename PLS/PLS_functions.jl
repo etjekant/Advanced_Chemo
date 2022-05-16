@@ -2,11 +2,9 @@
 #prepearing the data
 x, y, namen = data_reading()
 x, y = normalize_data(x, y, "std")
-namen, x = remove_shit(x, namen)
+x, namen = remove_shit(x, namen)
 
-@sk_import cross_decomposition: PLSRegression
-@sk_import model_selection: train_test_split
-@sk_import model_selection:cross_val_score
+
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 42)
 SSe = []

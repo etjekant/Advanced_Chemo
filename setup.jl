@@ -2,6 +2,11 @@
 using CSV, CurveFit, DataFrames, Distributions, GLM, HypothesisTests, Interpolations
 using Juno, LinearAlgebra, MixedAnova, OrderedCollections, Peaks, Plots, Random
 using RDatasets, ScikitLearn, StatsBase, Statistics, StatsPlots
+
+
+@sk_import pipeline: make_pipeline
+@sk_import linear_model: LinearRegression
+@sk_import cross_decomposition: PLSRegression
 @sk_import decomposition: PCA
 @sk_import linear_model: LogisticRegression
 @sk_import preprocessing: StandardScaler
@@ -9,7 +14,7 @@ using RDatasets, ScikitLearn, StatsBase, Statistics, StatsPlots
 @sk_import ensemble: RandomForestClassifier
 @sk_import ensemble: RandomForestRegressor
 @sk_import ensemble: ExtraTreesRegressor
-
+@sk_import model_selection:cross_val_score
 @sk_import model_selection: train_test_split;
 include("General_functions.jl")
 include("./PCA/PCA_functions.jl")
