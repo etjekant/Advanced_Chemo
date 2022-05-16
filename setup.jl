@@ -8,6 +8,8 @@ using RDatasets, ScikitLearn, StatsBase, Statistics, StatsPlots
 @sk_import model_selection: train_test_split
 @sk_import ensemble: RandomForestClassifier
 @sk_import ensemble: RandomForestRegressor
+@sk_import ensemble: ExtraTreesRegressor
+
 @sk_import model_selection: train_test_split;
 include("General_functions.jl")
 include("./PCA/PCA_functions.jl")
@@ -18,17 +20,37 @@ include("./TREE/TREE_functions.jl")
 
 data = CSV.read("ConcData.csv", DataFrame)
 data = vec(Matrix(data))
-normal_dist = Normal(mean(data), std(data))
+
 gamma_dist = fit_mle(Gamma, data)
 plot(gamma_dist)
 plot!(normal_dist)
 histogram!(data, bins=5, normalize=true, alpha=0.5)
 
-loop_vector = collect(9:0.01:10)
-return_vector = zeros(length(collect(9:0.01:10)))
-for i in eachindex(loop_vector)
-    normal_chance = pdf(normal_dist, i)
-    gamma_chance = pdf(gamma_dist, i)
-    return_vector[i] = normal_chance*gamma_chance
-    Plots.display(plot(loop_vector, return_vector))
+loop_vector = collect(2.5:0.01:10.5)
+return_vector = zeros(length(collect(2.5:0.01:10.5)))
+
+plot(loop_vector, return_vector)
+
+x, y, namen = data_reading()
+x_train, x_test, y_train, y_test = train_test_split(x, y)
+model = ExtraTreesRegressor(n_estimators=100, min_samples_leaf=2).fit(x_train, y_train)
+plot(y_test, model.predict(x_test), seriestype=:scatter)
+
+function uncertainty_estimate(x, pri)
+    target = collect(range(minimum(x), maximum(x), length=10000))
+    post = zeros(length(target))
+    for i in eachindex(target)
+        dist = Normal(target[i], std(x))
+        tv = 1
+        for j in eachindex(x)
+            tv *= pdf(dist, x[j]) * pdf(pri, x[j])
+        end
+        post[i] = tv
+    end
+    post = post ./ sum(post)
+    return post, target
 end
+
+x = data
+pri = gamma_dist
+post, target = uncertainty_estimate(data, pri)
