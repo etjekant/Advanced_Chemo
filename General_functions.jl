@@ -1,25 +1,33 @@
-function data_reading(clean=true)
+function data_reading(;clean=true, mono_mass=false)
     # This function reads the data and cleans the data if you want to. Also the first columns are removed
     # These are the columns that are not important
     data = CSV.read("./toxicity_data_fish_desc.csv", DataFrame)
-    data = data[:, 6:end]
-    namen = names(data)
-    if clean
-        data, namen = remove_shit(data, namen)
-    end
-    y = data[:, 6]
     x = data[:, 8:end]
-    namen = namen[8:end]
-    return x, y, namen
+    y = data[:, 6]
+    namen = names(x)
+    if clean
+        x, namen= remove_shit(x, namen)
+    end
+    if mono_mass
+        return  Matrix(x), y, namen, data[:, 7]
+    end
+    return Matrix(x), y, namen
 end
 
-function r_cal(x, y, y_hat)
+function r_cal(x2, y, y_hat)
     # r_cal takes as input three vectors of the same length. 
-    SS_tot = sum((y.-mean(y)).^2)
-    SS_res = sum((y_hat-y).^2)
-    Rsquared = 1 - (SS_res/SS_tot)
-    VARres = SS_res/(length(x)-size(x)[2])         # calculating VARres
-    VARtot = SS_tot/(length(x)-1)                  # calculating VARtot
+    SSr = sum((y - y_hat).^2)
+    SSe = sum((y_hat .- mean(y)).^2)
+    SSt = sum((y .- mean(y)).^2)
+    Rsquared = 1 - (SSr/SSt)
+    columns = 0
+    try
+        columns = size(x2)[2]
+    catch BoundsError
+        columns = 1
+    end
+    VARres = SSr/(length(y)-columns)         # calculating VARres
+    VARtot = SSt/(length(x2)-1)                  # calculating VARtot
     rsqadj = 1 - (VARres/VARtot)
     return Rsquared, rsqadj
 end
@@ -40,7 +48,7 @@ function remove_shit(x_data, namen=[])
     x_data = x_data[:, vec(.!any(Inf.==(Matrix(x_data)), dims=1))]
     namen = namen[vec(.!any((-Inf).==(Matrix(x_data)), dims=1))]
     x_data = x_data[:, vec(.!any((-Inf).==(Matrix(x_data)), dims=1))]
-    return namen, x_data
+    return x_data, namen
 end
                                                 
 function distance_calc(N)
@@ -65,4 +73,16 @@ function distance_calc_higher(data)
     end
     return dist += dist'
 end                                                              
-                                                                
+
+function normalize_data(x, y, method="std")
+    if method == "std"
+        x = (x .- mean(x, dims=1)) ./ std(x, dims = 1)
+        y = (y .- mean(y)) / std(y)
+    elseif method == "minmax"
+        x = (x .- maximum(x, dims=1)) ./ (maximum(x, dims=1) - minimum(x, dims=1))
+        y = (y .- maximum(y)) ./ (maximum(y) - minimum(y))
+    end
+    return x, y
+end
+
+
